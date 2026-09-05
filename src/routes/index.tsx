@@ -311,7 +311,7 @@ function Entradas() {
         </Reveal>
         <Reveal delay={100}>
           <img
-            src={img.entradas}
+            src={img["entradas"]}
             alt="Entradas: burrata, focaccia, arancine e croquetes"
             loading="lazy"
             width={1200}
@@ -330,7 +330,7 @@ function Sobremesas() {
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
         <Reveal>
           <img
-            src={img.sobremesas}
+            src={img["sobremesas"]}
             alt="Banoffee e petit gâteau servidos na mesa de madeira"
             loading="lazy"
             width={1200}
