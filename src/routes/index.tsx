@@ -68,7 +68,7 @@ function Home() {
 
 function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] items-end overflow-hidden bg-forest-deep">
+    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-forest-deep md:items-end">
       <img
         src={heroRosti}
         alt="Rösti artesanal com filé-mignon servido em mesa de madeira"
@@ -77,7 +77,7 @@ function Hero() {
         className="absolute inset-0 size-full object-cover opacity-70"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-forest-deep via-forest-deep/70 to-forest-deep/40" />
-      <div className="relative mx-auto w-full max-w-5xl px-6 pt-32 pb-16 text-center md:px-10 md:pb-24">
+      <div className="relative mx-auto w-full max-w-5xl px-6 pt-28 pb-14 text-center md:px-10 md:pt-32 md:pb-24">
         <Reveal>
           <p className="script text-xl text-gold md:text-2xl">Nova Friburgo</p>
           <h1 className="mt-4 font-serif text-4xl leading-[1.05] tracking-[0.06em] text-cream sm:text-5xl md:text-7xl">
