@@ -219,3 +219,7 @@
     transition: none;
   }
 }
+#lovable-badge {
+display: none !important;
+}
+
