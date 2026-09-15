@@ -4,8 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Rostiseria Ateliê — design system
- * Verde floresta, creme quente, dourado envelhecido, marrom madeira.
+ * Rostiseria Ateliê — tema escuro
+ * Carvão esverdeado, creme, dourado envelhecido.
  */
 
 @theme inline {
@@ -33,55 +33,49 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-deep: var(--charcoal-deep);
   --color-forest: var(--forest);
   --color-forest-deep: var(--forest-deep);
   --color-olive: var(--olive);
   --color-cream: var(--cream);
-  --color-cream-deep: var(--cream-deep);
   --color-gold: var(--gold);
   --color-gold-soft: var(--gold-soft);
-  --color-wood: var(--wood);
-  --color-ink: var(--ink);
   --font-serif: var(--font-cormorant), Georgia, serif;
   --font-sans: var(--font-karla), system-ui, sans-serif;
-  --font-script: var(--font-petit), cursive;
 }
 
 :root {
-  --radius: 0.25rem;
+  --radius: 0.125rem;
 
-  --forest-deep: oklch(0.235 0.028 150);
-  --forest: oklch(0.297 0.036 150);
-  --olive: oklch(0.42 0.052 122);
-  --cream: oklch(0.963 0.019 88);
-  --cream-deep: oklch(0.925 0.028 86);
-  --gold: oklch(0.735 0.093 82);
-  --gold-soft: oklch(0.83 0.06 85);
-  --wood: oklch(0.41 0.058 55);
-  --ink: oklch(0.19 0.008 60);
+  --charcoal-deep: oklch(0.15 0.01 145);
+  --charcoal: oklch(0.185 0.012 145);
+  --forest-deep: oklch(0.22 0.022 150);
+  --forest: oklch(0.29 0.032 150);
+  --olive: oklch(0.62 0.05 120);
+  --cream: oklch(0.93 0.014 85);
+  --gold: oklch(0.76 0.085 80);
+  --gold-soft: oklch(0.84 0.06 84);
 
-  --background: var(--cream);
-  --foreground: var(--forest-deep);
-  --card: oklch(0.982 0.012 88);
-  --card-foreground: var(--forest-deep);
-  --popover: var(--cream);
-  --popover-foreground: var(--forest-deep);
-  --primary: var(--forest);
-  --primary-foreground: var(--cream);
-  --secondary: var(--cream-deep);
-  --secondary-foreground: var(--forest-deep);
-  --muted: var(--cream-deep);
-  --muted-foreground: oklch(0.46 0.026 130);
+  --background: var(--charcoal);
+  --foreground: var(--cream);
+  --card: var(--forest-deep);
+  --card-foreground: var(--cream);
+  --popover: var(--charcoal-deep);
+  --popover-foreground: var(--cream);
+  --primary: var(--gold);
+  --primary-foreground: var(--charcoal-deep);
+  --secondary: var(--charcoal-deep);
+  --secondary-foreground: var(--cream);
+  --muted: var(--forest-deep);
+  --muted-foreground: oklch(0.70 0.012 90);
   --accent: var(--gold);
-  --accent-foreground: var(--forest-deep);
-  --destructive: oklch(0.52 0.17 27);
+  --accent-foreground: var(--charcoal-deep);
+  --destructive: oklch(0.6 0.16 27);
   --destructive-foreground: var(--cream);
-  --border: oklch(0.865 0.028 86);
-  --input: oklch(0.865 0.028 86);
+  --border: oklch(0.30 0.012 130);
+  --input: oklch(0.30 0.012 130);
   --ring: var(--gold);
-
-  --shadow-warm: 0 18px 40px -24px oklch(0.235 0.028 150 / 0.45);
-  --shadow-lift: 0 26px 60px -28px oklch(0.235 0.028 150 / 0.55);
 }
 
 @layer base {
@@ -92,6 +86,7 @@
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    color-scheme: dark;
   }
 
   body {
@@ -99,17 +94,22 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-size: 1rem;
-    line-height: 1.65;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
   h1,
   h2,
-  h3,
-  h4 {
+  h3 {
     font-family: var(--font-serif);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.1;
+    letter-spacing: -0.005em;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--charcoal-deep);
   }
 
   :focus-visible {
@@ -120,27 +120,28 @@
 
 @utility eyebrow {
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
-  letter-spacing: 0.28em;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--olive);
 }
 
-@utility script {
-  font-family: var(--font-script);
-  letter-spacing: 0.01em;
-}
-
-@utility rule-gold {
+@utility grain {
+  position: relative;
   &::after {
     content: "";
-    display: block;
-    width: 3rem;
-    height: 1px;
-    margin-top: 1.25rem;
-    background: var(--gold);
-    opacity: 0.8;
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0.09;
+    mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+}
+
+@utility photo {
+  filter: saturate(0.88) contrast(1.02);
 }
 
 @utility btn-base {
@@ -148,64 +149,61 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 3rem;
-  padding: 0 1.75rem;
+  min-height: 2.875rem;
+  padding: 0 1.375rem;
   border-radius: 2px;
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  font-size: 0.9375rem;
   font-weight: 600;
   transition:
-    background-color 0.25s ease,
-    color 0.25s ease,
-    border-color 0.25s ease;
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 @utility btn-gold {
   @apply btn-base;
   background: var(--gold);
-  color: var(--forest-deep);
+  color: var(--charcoal-deep);
   &:hover {
     background: var(--gold-soft);
   }
 }
 
-@utility btn-outline-cream {
+@utility btn-ghost {
   @apply btn-base;
-  border: 1px solid oklch(0.963 0.019 88 / 0.5);
+  border: 1px solid oklch(0.93 0.014 85 / 0.28);
   color: var(--cream);
   &:hover {
-    background: oklch(0.963 0.019 88 / 0.12);
-    border-color: var(--cream);
+    border-color: oklch(0.93 0.014 85 / 0.7);
+    background: oklch(0.93 0.014 85 / 0.06);
   }
 }
 
-@utility btn-forest {
-  @apply btn-base;
-  background: var(--forest);
-  color: var(--cream);
-  &:hover {
-    background: var(--forest-deep);
+@utility price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  &::before {
+    content: "";
+    order: 2;
+    flex: 1;
+    border-bottom: 1px dotted oklch(0.93 0.014 85 / 0.28);
+    transform: translateY(-0.3em);
   }
-}
-
-@utility btn-outline-forest {
-  @apply btn-base;
-  border: 1px solid oklch(0.297 0.036 150 / 0.35);
-  color: var(--forest);
-  &:hover {
-    background: oklch(0.297 0.036 150 / 0.06);
-    border-color: var(--forest);
+  & > :last-child {
+    order: 3;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
   }
 }
 
 @utility reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(10px);
   transition:
-    opacity 0.7s ease,
-    transform 0.7s ease;
+    opacity 0.6s ease,
+    transform 0.6s ease;
 }
 
 @utility reveal-in {

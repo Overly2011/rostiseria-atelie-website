@@ -6,14 +6,11 @@ import {
   ACasa,
   Rostis,
   Pizzas,
-  Editorial,
   Entradas,
-  Sobremesas,
   Bar,
   Ambiente,
-  Reservas,
+  Avisos,
   Localizacao,
-  Feed,
 } from "@/components/home/sections"
 
 export default function HomePage() {
@@ -25,14 +22,11 @@ export default function HomePage() {
         <ACasa />
         <Rostis />
         <Pizzas />
-        <Editorial />
         <Entradas />
-        <Sobremesas />
         <Bar />
         <Ambiente />
-        <Reservas />
+        <Avisos />
         <Localizacao />
-        <Feed />
       </main>
       <Footer />
       <WhatsappFab />

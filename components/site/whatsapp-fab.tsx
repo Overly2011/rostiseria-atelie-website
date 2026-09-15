@@ -8,10 +8,10 @@ export function WhatsappFab() {
       target="_blank"
       rel="noreferrer"
       aria-label="Reservar pelo WhatsApp"
-      className="fixed right-4 bottom-4 z-50 flex items-center gap-2 rounded-full bg-forest px-5 py-4 text-cream shadow-[var(--shadow-lift)] transition-colors hover:bg-forest-deep md:right-8 md:bottom-8"
+      className="fixed right-4 bottom-4 z-50 flex items-center gap-2 rounded-full border border-border bg-charcoal-deep px-4 py-3 text-sm font-semibold text-cream shadow-lg transition-colors hover:border-gold md:right-6 md:bottom-6"
     >
       <MessageCircle className="size-5 text-gold" />
-      <span className="text-[0.7rem] tracking-[0.18em] uppercase">Reservar</span>
+      Reservar
     </a>
   )
 }

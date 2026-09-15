@@ -1,67 +1,91 @@
 import Link from "next/link"
-import { MapPin, Clock, Instagram } from "lucide-react"
+import { MapPin, Clock, Phone, Instagram } from "lucide-react"
 import { Reveal } from "@/components/site/reveal"
 import {
-  CIDADE,
+  ENDERECO,
+  ENDERECO_COMPLEMENTO,
+  FECHADO,
   HORARIO,
   INSTAGRAM,
   INSTAGRAM_URL,
+  MAPS_URL,
+  TELEFONE_EXIBICAO,
+  avisos,
   drinks,
   entradas,
   pizzas,
   rostis,
-  semAlcool,
   sobremesas,
   whatsappLink,
 } from "@/lib/site"
-import { img, heroRosti, ambienteSalao, forno, drinksImg } from "@/lib/images"
+import { img, heroRosti, ambienteSalao, forno } from "@/lib/images"
+
+function Veg() {
+  return (
+    <span
+      className="ml-1.5 align-middle text-[0.65rem] font-semibold text-olive"
+      title="Vegetariano"
+      aria-label="vegetariano"
+    >
+      (v)
+    </span>
+  )
+}
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[100svh] items-center overflow-hidden bg-forest-deep md:items-end">
+    <section className="grain relative flex min-h-[92svh] items-end overflow-hidden bg-charcoal-deep">
       <img
-        src={heroRosti || "/placeholder.svg"}
-        alt="Rösti artesanal com filé-mignon servido em mesa de madeira"
+        src={heroRosti}
+        alt="Rösti com filé-mignon servido em frigideira de ferro"
         width={1600}
         height={1104}
-        className="absolute inset-0 size-full object-cover opacity-70"
+        className="photo absolute inset-0 size-full object-cover opacity-60"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-forest-deep via-forest-deep/70 to-forest-deep/40" />
-      <div className="relative mx-auto w-full max-w-5xl px-6 pt-28 pb-14 text-center md:px-10 md:pt-32 md:pb-24">
+      <div className="absolute inset-0 bg-gradient-to-t from-charcoal-deep via-charcoal-deep/60 to-charcoal-deep/20" />
+      <div className="relative mx-auto w-full max-w-6xl px-6 pt-32 pb-12 md:px-8 md:pb-16">
         <Reveal>
-          <p className="script text-xl text-gold md:text-2xl">Nova Friburgo</p>
-          <h1 className="mt-4 font-serif text-4xl leading-[1.05] tracking-[0.06em] text-cream sm:text-5xl md:text-7xl">
-            ROSTISERIA ATELIÊ
+          <p className="eyebrow">Restaurante · Nova Friburgo, RJ</p>
+          <h1 className="mt-4 max-w-2xl font-serif text-5xl text-cream text-balance md:text-7xl">
+            Rösti feito na hora e pizza de forno de pedra.
           </h1>
-          <p className="mt-5 text-[0.65rem] tracking-[0.34em] text-gold/90 md:text-xs">
-            RÖSTI · PIZZA · GASTRONOMIA
+          <p className="mt-6 max-w-lg text-base text-cream/75 md:text-lg">
+            Casa pequena no centro, 24 lugares e cozinha à vista. Abrimos de quarta a
+            domingo, a partir das 18h.
           </p>
-          <p className="mx-auto mt-8 max-w-xl font-serif text-2xl text-cream italic md:text-3xl">
-            {"\u201CDo Rösti artesanal à pizza autoral.\u201D"}
-          </p>
-          <p className="mx-auto mt-5 max-w-xl text-sm text-cream/75 md:text-base">
-            Uma cozinha de sabores marcantes, ingredientes selecionados e receitas feitas
-            para compartilhar.
-          </p>
-          <div className="mt-10 flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
-            <Link href="/cardapio" className="btn-gold">
-              Ver cardápio
-            </Link>
-            <a
-              href={whatsappLink()}
-              target="_blank"
-              rel="noreferrer"
-              className="btn-outline-cream"
-            >
-              Reservar mesa
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a href={whatsappLink()} target="_blank" rel="noreferrer" className="btn-gold">
+              Reservar pelo WhatsApp
             </a>
+            <Link href="/cardapio" className="btn-ghost">
+              Ver cardápio e preços
+            </Link>
           </div>
-          <p className="mt-6 text-[0.65rem] tracking-[0.22em] text-cream/60 uppercase">
-            Reservas pelo WhatsApp
-          </p>
-          <p className="mt-1 text-[0.65rem] tracking-[0.22em] text-cream/60 uppercase">
-            {HORARIO}
-          </p>
+        </Reveal>
+        <Reveal delay={150}>
+          <dl className="mt-12 grid gap-4 border-t border-cream/15 pt-6 text-sm text-cream/75 sm:grid-cols-3">
+            <div className="flex gap-3">
+              <Clock className="mt-0.5 size-4 shrink-0 text-gold" />
+              <div>
+                <dt className="text-cream">{HORARIO}</dt>
+                <dd>{FECHADO}</dd>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <MapPin className="mt-0.5 size-4 shrink-0 text-gold" />
+              <div>
+                <dt className="text-cream">{ENDERECO}</dt>
+                <dd>{ENDERECO_COMPLEMENTO}</dd>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Phone className="mt-0.5 size-4 shrink-0 text-gold" />
+              <div>
+                <dt className="text-cream">{TELEFONE_EXIBICAO}</dt>
+                <dd>WhatsApp para reservas</dd>
+              </div>
+            </div>
+          </dl>
         </Reveal>
       </div>
     </section>
@@ -70,47 +94,45 @@ export function Hero() {
 
 export function ACasa() {
   return (
-    <section id="a-casa" className="bg-background px-6 py-20 md:px-10 md:py-28">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2 lg:gap-20">
+    <section id="a-casa" className="px-6 py-20 md:px-8 md:py-28">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-20">
         <Reveal>
-          <p className="eyebrow text-olive">A Casa</p>
-          <h2 className="rule-gold mt-4 font-serif text-3xl md:text-5xl">
-            Uma cozinha feita para reunir.
-          </h2>
-          <div className="mt-8 space-y-5 text-[0.95rem] text-muted-foreground md:text-base">
-            <p>
-              A Rostiseria Ateliê nasceu de uma obsessão pequena: acertar o ponto do rösti.
-              Ralar a batata na hora, prensar devagar na frigideira de ferro e servir
-              enquanto a borda ainda estala. Nada disso escala bem — por isso a casa tem
-              poucas mesas.
-            </p>
-            <p>
-              O restante do menu cresceu em volta dessa mesma teimosia. A massa das pizzas
-              descansa por dois dias antes de encontrar o forno de pedra; a carne seca vem
-              de um fornecedor de Minas que nos manda a peça inteira; a couve é frita na
-              hora do pedido, e não antes.
-            </p>
-            <p>
-              Somos um ateliê no sentido literal: uma cozinha pequena, uma equipe que se
-              conhece pelo nome e um cardápio que muda quando a serra pede — mais raiz no
-              inverno, mais verde e ácido nos meses quentes.
-            </p>
-          </div>
-        </Reveal>
-        <Reveal delay={120}>
-          <figure className="relative">
+          <figure>
             <img
-              src={ambienteSalao || "/placeholder.svg"}
-              alt="Salão da Rostiseria Ateliê com mesas de madeira e luminárias douradas"
+              src={ambienteSalao}
+              alt="Salão da Rostiseria Ateliê, mesas de madeira e luz baixa"
               loading="lazy"
               width={1200}
               height={1408}
-              className="h-[26rem] w-full object-cover shadow-[var(--shadow-warm)] md:h-[34rem]"
+              className="photo aspect-[4/5] w-full object-cover"
             />
-            <figcaption className="script mt-4 text-center text-lg text-olive">
-              vinte e quatro lugares, uma cozinha à vista
+            <figcaption className="mt-3 text-xs text-cream/50">
+              O salão. Vinte e quatro lugares, cozinha à vista no fundo.
             </figcaption>
           </figure>
+        </Reveal>
+        <Reveal delay={100} className="lg:pt-8">
+          <p className="eyebrow">A casa</p>
+          <h2 className="mt-3 font-serif text-3xl text-cream md:text-5xl">
+            Uma cozinha pequena que faz poucas coisas com cuidado.
+          </h2>
+          <div className="mt-7 max-w-prose space-y-4 text-[0.95rem] leading-relaxed text-cream/75 md:text-base">
+            <p>
+              A Rostiseria abriu em 2019 numa casa antiga do centro de Nova Friburgo. A
+              ideia era simples: acertar o ponto do rösti. Batata ralada na hora, prensada
+              devagar na frigideira de ferro, servida enquanto a borda ainda estala. Isso
+              leva uns vinte minutos por pedido, e a gente prefere avisar antes.
+            </p>
+            <p>
+              As pizzas vieram um ano depois, quando montamos o forno de pedra. A massa
+              descansa 48 horas antes de assar. O cardápio é curto de propósito e muda um
+              pouco com a estação, mais raiz e queijo no inverno, mais tomate e folha no
+              verão.
+            </p>
+            <p>
+              Somos uma equipe de sete pessoas. Quem atende geralmente é quem cozinha.
+            </p>
+          </div>
         </Reveal>
       </div>
     </section>
@@ -118,47 +140,51 @@ export function ACasa() {
 }
 
 export function Rostis() {
+  const destaque = rostis.slice(0, 4)
   return (
-    <section id="rostis" className="bg-forest px-6 py-20 text-cream md:px-10 md:py-28">
+    <section id="rostis" className="border-y border-border bg-charcoal-deep px-6 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <Reveal className="text-center">
-          <p className="eyebrow text-gold">Especialidade da casa</p>
-          <h2 className="mt-4 font-serif text-3xl tracking-[0.08em] md:text-5xl">
-            RÖSTIS ARTESANAIS
-          </h2>
-          <p className="mx-auto mt-5 max-w-xl font-serif text-xl text-cream/80 italic md:text-2xl">
-            Crocantes por fora, cremosos por dentro e sempre feitos na hora.
+        <Reveal className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="eyebrow">Especialidade</p>
+            <h2 className="mt-3 font-serif text-3xl text-cream md:text-5xl">Röstis</h2>
+          </div>
+          <p className="max-w-md text-sm text-cream/65">
+            Base de batata ralada e prensada, cerca de 300 g, serve bem uma pessoa ou
+            duas com entrada. Tempo de preparo: 20 a 25 minutos.
           </p>
         </Reveal>
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {rostis.map((r, i) => (
-            <Reveal key={r.nome} delay={(i % 4) * 80} as="article">
-              <div className="group">
-                <div className="overflow-hidden">
-                  <img
-                    src={img[r.img ?? "hero"] || "/placeholder.svg"}
-                    alt={r.nome}
-                    loading="lazy"
-                    width={912}
-                    height={912}
-                    className="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                  />
-                </div>
-                <div className="mt-5 flex items-baseline justify-between gap-4 border-b border-cream/15 pb-2">
-                  <h3 className="font-serif text-xl tracking-wide">{r.nome}</h3>
-                  <span className="text-sm text-gold">{r.preco}</span>
-                </div>
-                <p className="mt-3 text-sm text-cream/70">{r.descricao}</p>
+        <div className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          {destaque.map((r, i) => (
+            <Reveal key={r.nome} delay={i * 70} as="article">
+              <img
+                src={img[r.img ?? "hero"]}
+                alt={r.nome}
+                loading="lazy"
+                width={912}
+                height={912}
+                className="photo aspect-[4/3] w-full object-cover"
+              />
+              <div className="price-row mt-4">
+                <h3 className="font-serif text-xl text-cream">
+                  {r.nome}
+                  {r.veg && <Veg />}
+                </h3>
+                <span className="text-sm text-gold">R$ {r.preco}</span>
               </div>
+              <p className="mt-2 text-sm text-cream/65">{r.descricao}</p>
             </Reveal>
           ))}
         </div>
 
-        <Reveal className="mt-14 text-center">
-          <Link href="/cardapio" className="btn-outline-cream">
-            Cardápio completo
+        <Reveal className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+          <Link href="/cardapio#rostis" className="btn-ghost">
+            Ver os 8 röstis
           </Link>
+          <p className="text-cream/55">
+            Dá para trocar a base por batata-doce em qualquer rösti, sem custo.
+          </p>
         </Reveal>
       </div>
     </section>
@@ -167,74 +193,54 @@ export function Rostis() {
 
 export function Pizzas() {
   return (
-    <section id="pizzas" className="bg-background px-6 py-20 md:px-10 md:py-28">
-      <div className="mx-auto max-w-6xl">
-        <Reveal className="text-center">
-          <p className="eyebrow text-olive">Forno de pedra</p>
-          <h2 className="mt-4 font-serif text-3xl tracking-[0.08em] md:text-5xl">
-            PIZZAS AUTORAIS
-          </h2>
-          <p className="mx-auto mt-5 max-w-xl font-serif text-xl text-muted-foreground italic md:text-2xl">
-            Massas artesanais, forno de pedra e combinações que fogem do óbvio.
-          </p>
-        </Reveal>
-
-        <div className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-2">
-          {pizzas.map((p, i) => (
-            <Reveal key={p.nome} delay={(i % 2) * 70} as="article">
-              <div className="group flex gap-5">
-                <img
-                  src={img[p.img ?? "margherita"] || "/placeholder.svg"}
-                  alt={p.nome}
-                  loading="lazy"
-                  width={912}
-                  height={912}
-                  className="size-24 shrink-0 object-cover transition-transform duration-700 group-hover:scale-[1.05] md:size-28"
-                />
-                <div className="min-w-0">
-                  <h3 className="font-serif text-xl tracking-wide">{p.nome}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{p.descricao}</p>
-                  <p className="mt-3 text-xs tracking-[0.16em] text-olive uppercase">
-                    Individual {p.individual} · Grande {p.grande}
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          ))}
+    <section id="pizzas" className="px-6 py-20 md:px-8 md:py-28">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+        <div>
+          <Reveal>
+            <p className="eyebrow">Forno de pedra</p>
+            <h2 className="mt-3 font-serif text-3xl text-cream md:text-5xl">Pizzas</h2>
+            <p className="mt-4 max-w-md text-sm text-cream/65">
+              Massa de fermentação longa (48h), borda fina e assada a 400 °C. Individual
+              com 25 cm, grande com 35 cm (8 fatias).
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <ul className="mt-10 divide-y divide-border">
+              {pizzas.map((p) => (
+                <li key={p.nome} className="py-4">
+                  <div className="price-row">
+                    <h3 className="font-serif text-xl text-cream">
+                      {p.nome}
+                      {p.veg && <Veg />}
+                    </h3>
+                    <span className="text-sm text-gold">
+                      {p.individual} / {p.grande}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm text-cream/65">{p.descricao}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-xs text-cream/50">
+              Preços em reais: individual / grande. Borda recheada com catupiry ou
+              cheddar: + R$ 8.
+            </p>
+          </Reveal>
         </div>
-      </div>
-    </section>
-  )
-}
-
-export function Editorial() {
-  return (
-    <section className="relative overflow-hidden bg-forest-deep">
-      <img
-        src={forno || "/placeholder.svg"}
-        alt="Pizza saindo do forno de pedra"
-        loading="lazy"
-        width={1408}
-        height={1008}
-        className="absolute inset-0 size-full object-cover opacity-45"
-      />
-      <div className="relative mx-auto max-w-3xl px-6 py-24 text-center md:py-36">
-        <Reveal>
-          <p className="eyebrow text-gold">Do começo ao fim da noite</p>
-          <div className="mt-10 space-y-6">
-            <h2 className="font-serif text-3xl tracking-[0.12em] text-cream md:text-5xl">
-              RÖSTI ARTESANAL
-            </h2>
-            <p className="text-gold/70">↓</p>
-            <h2 className="font-serif text-3xl tracking-[0.12em] text-cream md:text-5xl">
-              PIZZA AUTORAL
-            </h2>
-            <p className="text-gold/70">↓</p>
-            <h2 className="font-serif text-3xl tracking-[0.12em] text-cream md:text-5xl">
-              GASTRONOMIA
-            </h2>
-          </div>
-          <p className="script mt-10 text-xl text-gold">uma noite inteira à mesa</p>
+        <Reveal delay={120} className="lg:sticky lg:top-24 lg:self-start">
+          <figure>
+            <img
+              src={forno}
+              alt="Pizza saindo do forno de pedra"
+              loading="lazy"
+              width={1408}
+              height={1008}
+              className="photo aspect-[4/5] w-full object-cover"
+            />
+            <figcaption className="mt-3 text-xs text-cream/50">
+              O forno fica ligado das 17h até o fechamento.
+            </figcaption>
+          </figure>
         </Reveal>
       </div>
     </section>
@@ -243,61 +249,42 @@ export function Editorial() {
 
 export function Entradas() {
   return (
-    <section className="bg-secondary px-6 py-20 md:px-10 md:py-24">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
+    <section className="border-y border-border bg-charcoal-deep px-6 py-20 md:px-8 md:py-24">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal>
-          <p className="eyebrow text-olive">Para começar</p>
-          <h2 className="rule-gold mt-4 font-serif text-3xl md:text-4xl">Entradas</h2>
-          <ul className="mt-8 grid gap-x-10 gap-y-1 sm:grid-cols-2">
+          <p className="eyebrow">Para começar e para terminar</p>
+          <h2 className="mt-3 font-serif text-3xl text-cream md:text-4xl">
+            Entradas e sobremesas
+          </h2>
+          <ul className="mt-8 divide-y divide-border">
             {entradas.map((e) => (
-              <li
-                key={e}
-                className="border-b border-border py-3 font-serif text-lg md:text-xl"
-              >
-                {e}
+              <li key={e.nome} className="price-row py-3">
+                <span className="font-serif text-lg text-cream">
+                  {e.nome}
+                  {e.veg && <Veg />}
+                  {e.descricao && (
+                    <span className="ml-2 font-sans text-xs text-cream/50">{e.descricao}</span>
+                  )}
+                </span>
+                <span className="text-sm text-gold">{e.preco}</span>
               </li>
             ))}
           </ul>
         </Reveal>
         <Reveal delay={100}>
           <img
-            src={img.entradas || "/placeholder.svg"}
-            alt="Entradas: burrata, focaccia, arancine e croquetes"
+            src={img.entradas}
+            alt="Burrata, focaccia e arancine na mesa"
             loading="lazy"
             width={1200}
             height={912}
-            className="h-72 w-full object-cover shadow-[var(--shadow-warm)] md:h-96"
+            className="photo aspect-[3/2] w-full object-cover"
           />
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
-export function Sobremesas() {
-  return (
-    <section className="bg-background px-6 py-20 md:px-10 md:py-24">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1fr_1.1fr]">
-        <Reveal>
-          <img
-            src={img.sobremesas || "/placeholder.svg"}
-            alt="Banoffee e petit gâteau servidos na mesa de madeira"
-            loading="lazy"
-            width={1200}
-            height={912}
-            className="h-72 w-full object-cover shadow-[var(--shadow-warm)] md:h-96"
-          />
-        </Reveal>
-        <Reveal delay={100}>
-          <p className="eyebrow text-olive">Para terminar</p>
-          <h2 className="rule-gold mt-4 font-serif text-3xl md:text-4xl">Sobremesas</h2>
-          <ul className="mt-8">
+          <ul className="mt-8 divide-y divide-border">
             {sobremesas.map((s) => (
-              <li
-                key={s}
-                className="border-b border-border py-3 font-serif text-lg md:text-xl"
-              >
-                {s}
+              <li key={s.nome} className="price-row py-3">
+                <span className="font-serif text-lg text-cream">{s.nome}</span>
+                <span className="text-sm text-gold">{s.preco}</span>
               </li>
             ))}
           </ul>
@@ -309,33 +296,41 @@ export function Sobremesas() {
 
 export function Bar() {
   return (
-    <section className="relative overflow-hidden bg-forest-deep px-6 py-20 text-cream md:px-10 md:py-28">
-      <img
-        src={drinksImg || "/placeholder.svg"}
-        alt="Drinks no balcão do bar"
-        loading="lazy"
-        width={1200}
-        height={912}
-        className="absolute inset-0 size-full object-cover opacity-35"
-      />
-      <div className="relative mx-auto max-w-4xl text-center">
+    <section className="px-6 py-20 md:px-8 md:py-24">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
         <Reveal>
-          <p className="eyebrow text-gold">Bar</p>
-          <h2 className="mt-4 font-serif text-3xl md:text-5xl">Clássicos bem feitos</h2>
-          <ul className="mx-auto mt-10 grid max-w-2xl gap-x-12 sm:grid-cols-2">
+          <img
+            src={img.drinks}
+            alt="Drinks no balcão do bar"
+            loading="lazy"
+            width={1200}
+            height={912}
+            className="photo aspect-square w-full object-cover"
+          />
+        </Reveal>
+        <Reveal delay={100}>
+          <p className="eyebrow">Bar</p>
+          <h2 className="mt-3 font-serif text-3xl text-cream md:text-4xl">Drinks e bebidas</h2>
+          <p className="mt-4 max-w-md text-sm text-cream/65">
+            Carta curta. Temos também cerveja artesanal da região, rotativa, e um vinho da
+            casa em taça.
+          </p>
+          <ul className="mt-8 divide-y divide-border">
             {drinks.map((d) => (
-              <li
-                key={d}
-                className="border-b border-cream/15 py-3 font-serif text-lg md:text-xl"
-              >
-                {d}
+              <li key={d.nome} className="price-row py-3">
+                <span className="font-serif text-lg text-cream">
+                  {d.nome}
+                  {d.descricao && (
+                    <span className="ml-2 font-sans text-xs text-cream/50">{d.descricao}</span>
+                  )}
+                </span>
+                <span className="text-sm text-gold">{d.preco}</span>
               </li>
             ))}
           </ul>
-          <p className="eyebrow mt-12 text-gold">Sem álcool</p>
-          <p className="mx-auto mt-4 max-w-xl text-sm text-cream/75">
-            {semAlcool.join(" · ")}
-          </p>
+          <Link href="/cardapio#bar" className="mt-6 inline-block text-sm text-gold underline-offset-4 hover:underline">
+            Carta completa, incluindo sem álcool
+          </Link>
         </Reveal>
       </div>
     </section>
@@ -343,63 +338,70 @@ export function Bar() {
 }
 
 const galeria = [
-  { key: "fachada", alt: "Fachada da Rostiseria Ateliê à noite", span: "md:col-span-2" },
-  { key: "salao", alt: "Salão com mesas intimistas", span: "" },
-  { key: "cozinha", alt: "Chef preparando rösti na cozinha", span: "" },
-  { key: "forno", alt: "Pizza saindo do forno de pedra", span: "md:col-span-2" },
-  { key: "hero", alt: "Rösti sendo servido", span: "" },
-  { key: "drinks", alt: "Drinks da casa", span: "" },
-  { key: "entradas", alt: "Detalhes da mesa e ingredientes", span: "" },
-  { key: "parma", alt: "Rösti Parma & Brie", span: "" },
+  { key: "fachada", alt: "Fachada à noite", caption: "A fachada, na Rua Fernando Bizzotto." },
+  { key: "cozinha", alt: "Rösti sendo prensado na frigideira", caption: "Rösti na frigideira de ferro." },
+  { key: "salao", alt: "Mesas do salão", caption: "Mesas do salão." },
+  { key: "parma", alt: "Rösti Parma e brie", caption: "Parma e brie, servido." },
+  { key: "forno", alt: "Forno de pedra aceso", caption: "Forno de pedra." },
+  { key: "drinks", alt: "Balcão do bar", caption: "O balcão." },
 ]
 
 export function Ambiente() {
   return (
-    <section id="ambiente" className="bg-secondary px-6 py-20 md:px-10 md:py-28">
+    <section id="ambiente" className="border-y border-border bg-charcoal-deep px-6 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-6xl">
-        <Reveal className="text-center">
-          <p className="eyebrow text-olive">Ambiente</p>
-          <h2 className="mt-4 font-serif text-3xl md:text-5xl">
+        <Reveal>
+          <p className="eyebrow">A casa por dentro</p>
+          <h2 className="mt-3 max-w-xl font-serif text-3xl text-cream md:text-5xl">
             Madeira, luz baixa e mesas próximas.
           </h2>
         </Reveal>
-        <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+        <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
           {galeria.map((g, i) => (
-            <Reveal key={g.key + i} delay={(i % 4) * 70} as="figure" className={g.span}>
+            <Reveal key={g.key} delay={(i % 3) * 70} as="figure">
               <img
-                src={img[g.key] || "/placeholder.svg"}
+                src={img[g.key]}
                 alt={g.alt}
                 loading="lazy"
-                className="h-40 w-full object-cover transition-transform duration-700 hover:scale-[1.03] sm:h-52 md:h-60"
+                className={`photo w-full object-cover ${i % 3 === 1 ? "aspect-[4/5]" : "aspect-[4/3]"}`}
               />
+              <figcaption className="mt-2 text-xs text-cream/50">{g.caption}</figcaption>
             </Reveal>
           ))}
         </div>
+        <Reveal className="mt-10 text-sm text-cream/60">
+          Mais fotos no Instagram,{" "}
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="text-gold underline-offset-4 hover:underline"
+          >
+            {INSTAGRAM}
+          </a>
+          .
+        </Reveal>
       </div>
     </section>
   )
 }
 
-export function Reservas() {
+export function Avisos() {
   return (
-    <section id="reservas" className="bg-forest px-6 py-20 text-cream md:px-10 md:py-28">
-      <div className="mx-auto max-w-2xl text-center">
+    <section className="px-6 py-20 md:px-8 md:py-24">
+      <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1fr_2fr]">
         <Reveal>
-          <h2 className="font-serif text-3xl md:text-5xl">Vamos reservar uma mesa?</h2>
-          <p className="mt-5 text-cream/75">
-            Escolha seu horário e fale diretamente conosco pelo WhatsApp.
-          </p>
-          <a
-            href={whatsappLink()}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-gold mt-9"
-          >
-            Reservar pelo WhatsApp
-          </a>
-          <p className="mt-6 text-[0.65rem] tracking-[0.22em] text-cream/55 uppercase">
-            {HORARIO}
-          </p>
+          <p className="eyebrow">Antes de vir</p>
+          <h2 className="mt-3 font-serif text-3xl text-cream md:text-4xl">Bom saber</h2>
+        </Reveal>
+        <Reveal delay={80}>
+          <ul className="divide-y divide-border">
+            {avisos.map((a) => (
+              <li key={a} className="py-4 text-[0.95rem] leading-relaxed text-cream/75">
+                {a}
+              </li>
+            ))}
+          </ul>
         </Reveal>
       </div>
     </section>
@@ -408,114 +410,85 @@ export function Reservas() {
 
 export function Localizacao() {
   return (
-    <section id="localizacao" className="bg-background px-6 py-20 md:px-10 md:py-28">
-      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-2 lg:items-center">
+    <section id="localizacao" className="border-t border-border bg-charcoal-deep px-6 py-20 md:px-8 md:py-28">
+      <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-start">
         <Reveal>
-          <p className="eyebrow text-olive">Localização</p>
-          <h2 className="rule-gold mt-4 font-serif text-3xl md:text-5xl">
-            Esperamos você.
+          <p className="eyebrow">Onde estamos</p>
+          <h2 className="mt-3 font-serif text-3xl text-cream md:text-5xl">
+            Centro de Nova Friburgo
           </h2>
-          <dl className="mt-8 space-y-5 text-sm md:text-base">
+          <dl className="mt-8 space-y-6 text-sm md:text-base">
             <div className="flex gap-3">
               <MapPin className="mt-1 size-4 shrink-0 text-gold" />
               <div>
-                <dt className="eyebrow text-olive">Onde estamos</dt>
-                <dd className="mt-1">{CIDADE}</dd>
-                <dd className="text-muted-foreground">
-                  Endereço completo informado na confirmação da reserva.
+                <dt className="text-cream">{ENDERECO}</dt>
+                <dd className="text-cream/65">{ENDERECO_COMPLEMENTO}</dd>
+                <dd className="text-cream/65">
+                  A duas quadras da Praça Getúlio Vargas. Estacionamento na rua.
                 </dd>
               </div>
             </div>
             <div className="flex gap-3">
               <Clock className="mt-1 size-4 shrink-0 text-gold" />
               <div>
-                <dt className="eyebrow text-olive">Horários</dt>
-                <dd className="mt-1">{HORARIO}</dd>
-                <dd className="text-muted-foreground">Segunda e terça fechado.</dd>
+                <dt className="text-cream">{HORARIO}</dt>
+                <dd className="text-cream/65">{FECHADO}. Cozinha fecha às 23h.</dd>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Phone className="mt-1 size-4 shrink-0 text-gold" />
+              <div>
+                <dt className="text-cream">
+                  <a
+                    href={whatsappLink("Olá! Gostaria de falar com a Rostiseria Ateliê.")}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-gold/50 underline-offset-4 hover:decoration-gold"
+                  >
+                    {TELEFONE_EXIBICAO}
+                  </a>
+                </dt>
+                <dd className="text-cream/65">WhatsApp. Respondemos a partir das 15h.</dd>
               </div>
             </div>
             <div className="flex gap-3">
               <Instagram className="mt-1 size-4 shrink-0 text-gold" />
               <div>
-                <dt className="eyebrow text-olive">Contato</dt>
-                <dd className="mt-1">
-                  <a
-                    href={whatsappLink("Olá! Gostaria de falar com a Rostiseria Ateliê.")}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-gold/60 underline-offset-4"
-                  >
-                    WhatsApp
-                  </a>
-                </dd>
-                <dd>
+                <dt className="text-cream">
                   <a
                     href={INSTAGRAM_URL}
                     target="_blank"
                     rel="noreferrer"
-                    className="underline decoration-gold/60 underline-offset-4"
+                    className="underline decoration-gold/50 underline-offset-4 hover:decoration-gold"
                   >
                     {INSTAGRAM}
                   </a>
-                </dd>
+                </dt>
               </div>
             </div>
           </dl>
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Nova+Friburgo+RJ"
-            target="_blank"
-            rel="noreferrer"
-            className="btn-outline-forest mt-9"
-          >
-            Como chegar
-          </a>
-        </Reveal>
-        <Reveal delay={100}>
-          <div className="overflow-hidden shadow-[var(--shadow-warm)]">
-            <iframe
-              title="Mapa de Nova Friburgo — RJ"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=-42.60%2C-22.35%2C-42.45%2C-22.24&layer=mapnik"
-              loading="lazy"
-              className="h-80 w-full border-0 md:h-[26rem]"
-            />
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href={whatsappLink()} target="_blank" rel="noreferrer" className="btn-gold">
+              Reservar mesa
+            </a>
+            <a href={MAPS_URL} target="_blank" rel="noreferrer" className="btn-ghost">
+              Abrir no Google Maps
+            </a>
           </div>
         </Reveal>
-      </div>
-    </section>
-  )
-}
-
-const feed = ["hero", "salao", "margherita", "drinks", "parma", "forno"]
-
-export function Feed() {
-  return (
-    <section className="bg-secondary px-6 py-16 md:px-10 md:py-20">
-      <div className="mx-auto max-w-6xl text-center">
-        <Reveal>
-          <p className="eyebrow text-olive">Instagram</p>
-          <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-3 inline-block font-serif text-2xl md:text-3xl"
-          >
-            {INSTAGRAM}
-          </a>
+        <Reveal delay={100}>
+          <div className="overflow-hidden border border-border">
+            <iframe
+              title="Mapa: Rostiseria Ateliê, Nova Friburgo"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-42.5390%2C-22.2900%2C-42.5230%2C-22.2780&layer=mapnik&marker=-22.2840%2C-42.5310"
+              loading="lazy"
+              className="h-80 w-full border-0 grayscale-[0.4] invert-[0.88] hue-rotate-180 md:h-[30rem]"
+            />
+          </div>
+          <p className="mt-2 text-xs text-cream/45">
+            Mapa aproximado. Confirme o trajeto no Google Maps antes de sair.
+          </p>
         </Reveal>
-        <div className="mt-10 grid grid-cols-3 gap-2 md:grid-cols-6 md:gap-3">
-          {feed.map((k, i) => (
-            <Reveal key={k + i} delay={(i % 6) * 60}>
-              <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-                <img
-                  src={img[k] || "/placeholder.svg"}
-                  alt="Publicação da Rostiseria Ateliê no Instagram"
-                  loading="lazy"
-                  className="aspect-square w-full object-cover transition-opacity duration-500 hover:opacity-85"
-                />
-              </a>
-            </Reveal>
-          ))}
-        </div>
       </div>
     </section>
   )
