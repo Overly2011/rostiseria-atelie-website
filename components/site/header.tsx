@@ -3,14 +3,19 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
-import { whatsappLink, HORARIO_CURTO } from "@/lib/site"
+import { whatsappLink, HORARIO } from "@/lib/site"
 
-const nav = [
-  { href: "/#a-casa", label: "A casa" },
+const links = [
+  { to: "/", label: "Home" },
+  { to: "/cardapio", label: "Cardápio" },
+] as const
+
+const anchors = [
+  { href: "/#a-casa", label: "A Casa" },
   { href: "/#rostis", label: "Röstis" },
   { href: "/#pizzas", label: "Pizzas" },
-  { href: "/cardapio", label: "Cardápio" },
-  { href: "/#localizacao", label: "Onde estamos" },
+  { href: "/#ambiente", label: "Ambiente" },
+  { href: "/#localizacao", label: "Localização" },
 ]
 
 export function Header() {
@@ -18,7 +23,7 @@ export function Header() {
   const [solid, setSolid] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 24)
+    const onScroll = () => setSolid(window.scrollY > 40)
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
@@ -33,32 +38,36 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-colors duration-300 ${
-        solid || open
-          ? "border-border bg-charcoal-deep/95 backdrop-blur-sm"
-          : "border-transparent bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
+        solid || open ? "bg-forest-deep/95 backdrop-blur-sm" : "bg-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5 md:px-8">
-        <Link href="/" className="leading-none" onClick={() => setOpen(false)}>
-          <span className="block font-serif text-lg font-semibold tracking-wide text-cream md:text-xl">
-            Rostiseria Ateliê
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-10">
+        <Link href="/" className="group leading-none" onClick={() => setOpen(false)}>
+          <span className="block font-serif text-lg tracking-[0.16em] text-cream md:text-xl">
+            ROSTISERIA ATELIÊ
           </span>
-          <span className="mt-0.5 block text-[0.68rem] text-cream/55">
-            Nova Friburgo · {HORARIO_CURTO}
+          <span className="mt-1 block text-[0.5rem] tracking-[0.32em] text-gold/90 md:text-[0.58rem]">
+            RÖSTI · PIZZA · GASTRONOMIA
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
-          {nav.map((a) => (
-            <Link
+        <nav className="hidden items-center gap-8 lg:flex">
+          {anchors.map((a) => (
+            <a
               key={a.href}
               href={a.href}
-              className="text-sm text-cream/80 transition-colors hover:text-gold"
+              className="text-[0.7rem] tracking-[0.2em] text-cream/80 uppercase transition-colors hover:text-gold"
             >
               {a.label}
-            </Link>
+            </a>
           ))}
+          <Link
+            href="/cardapio"
+            className="text-[0.7rem] tracking-[0.2em] text-cream/80 uppercase transition-colors hover:text-gold"
+          >
+            Cardápio
+          </Link>
           <a href={whatsappLink()} target="_blank" rel="noreferrer" className="btn-gold">
             Reservar
           </a>
@@ -67,7 +76,6 @@ export function Header() {
         <button
           type="button"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
           className="flex size-11 items-center justify-center text-cream lg:hidden"
         >
@@ -76,17 +84,28 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="bg-charcoal-deep px-6 pt-4 pb-10 lg:hidden">
-          <ul>
-            {nav.map((a) => (
-              <li key={a.href}>
+        <div className="border-t border-cream/10 bg-forest-deep px-6 pt-6 pb-10 lg:hidden">
+          <ul className="space-y-1">
+            {links.map((l) => (
+              <li key={l.to}>
                 <Link
+                  href={l.to}
+                  onClick={() => setOpen(false)}
+                  className="block border-b border-cream/10 py-4 font-serif text-2xl text-cream"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+            {anchors.map((a) => (
+              <li key={a.href}>
+                <a
                   href={a.href}
                   onClick={() => setOpen(false)}
-                  className="block border-b border-border py-4 font-serif text-2xl text-cream"
+                  className="block border-b border-cream/10 py-4 font-serif text-2xl text-cream"
                 >
                   {a.label}
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
@@ -98,6 +117,9 @@ export function Header() {
           >
             Reservar pelo WhatsApp
           </a>
+          <p className="mt-4 text-center text-xs tracking-widest text-cream/60 uppercase">
+            {HORARIO}
+          </p>
         </div>
       )}
     </header>

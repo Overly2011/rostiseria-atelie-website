@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Cormorant_Garamond, Karla } from "next/font/google"
+import { Cormorant_Garamond, Karla, Petit_Formal_Script } from "next/font/google"
 import "./globals.css"
 
 const cormorant = Cormorant_Garamond({
@@ -15,19 +15,26 @@ const karla = Karla({
   display: "swap",
 })
 
+const petit = Petit_Formal_Script({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-petit",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
-  title: "Rostiseria Ateliê — Rösti e pizza em Nova Friburgo",
+  title: "Rostiseria Ateliê — Rösti artesanal e pizza autoral | Nova Friburgo",
   description:
-    "Restaurante em Nova Friburgo especializado em rösti feito na hora e pizza de forno de pedra. Quarta a domingo, a partir das 18h. Reservas pelo WhatsApp.",
+    "Rostiseria contemporânea em Nova Friburgo: rösti artesanal, pizzas autorais em forno de pedra, entradas, sobremesas e drinks. Reservas pelo WhatsApp.",
   openGraph: {
-    title: "Rostiseria Ateliê — Nova Friburgo",
+    title: "Rostiseria Ateliê — Rösti artesanal e pizza autoral",
     description:
-      "Rösti feito na hora e pizza de forno de pedra. Quarta a domingo, das 18h às 23h30.",
+      "Do rösti artesanal à pizza autoral. Cozinha de sabores marcantes em Nova Friburgo — RJ.",
   },
 }
 
 export const viewport = {
-  themeColor: "#1a1f1b",
+  themeColor: "#1a2b1f",
 }
 
 export default function RootLayout({
@@ -38,7 +45,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`dark bg-background ${cormorant.variable} ${karla.variable}`}
+      className={`bg-background ${cormorant.variable} ${karla.variable} ${petit.variable}`}
     >
       <body>{children}</body>
     </html>
